@@ -1,0 +1,11 @@
+1) lazy loading : improves initial loading performance of an application .
+
+lazy loading implementation :
+a) dynamic imports with next/dynamic
+b) React.lazy with suspense .
+
+2) loading.js - for creating instant loading state
+3) streaming with suspence 
+4) client componenet , server componenet , server functions ,server actions, directives .  sercer fucntoin vs server actions.
+5) use actions state
+6) 
