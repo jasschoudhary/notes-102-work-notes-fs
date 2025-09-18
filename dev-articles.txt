@@ -1,0 +1,8 @@
+https://adam-p.ca/blog/2022/03/x-forwarded-for/   == xff header
+
+
+# good test in coding 
+https://medium.com/@bartobri/applying-the-linus-tarvolds-good-taste-coding-requirement-99749f37684a#.xnta2qxv0 
+
+# short circuting with && and || 
+# what does JSON.stringify do ?? how it converts json.object to json string ?? does it changes shape of object ?? what does it mean by json string , json string VS String ???

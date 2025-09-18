@@ -1,0 +1,6 @@
+thinki machines 
+https://longnow.org/ideas/richard-feynman-and-the-connection-machine/
+
+
+non-determinism in LLM inference
+https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/

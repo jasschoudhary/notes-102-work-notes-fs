@@ -1,0 +1,72 @@
+persist saves data in :
+
+localStorage
+sessionStorage
+
+- and rehydrates store from that storage when app loads.
+
+
+const useStore = create( persist((set)=>({
+
+bears: 0;
+add: ()=> set(state => ({ bears: state.bears +1})) ,
+
+}) ,
+
+name: "bears-storage" ,
+storage: "createJSONStorage(()=>sessionStorage)) ,
+partialize: (state)=> subSet, // to store only partial state , to avoid storing temporary data.
+version:1.0 ,
+migrate: (persistesState, version)=>newState ,
+onRehydrateStorage: ()=> (state) => { 
+	state?.setHasHydrated?.(true) ;
+}
+
+----------------------------------------------
+Zustand immer : 
+- immer helps to make changes in deep/nested state easy.
+- immer provides the "drapt" that can be changed easily and it produces new mutable.
+- instead of using spread operator and flatting the whole nestes obj and then updating , immer provides a direct and easier way to update nested prop in iterables.
+
+
+----------------------
+
+combine : we can create cohesive state by merging an initial state
+
+why use immer : 
+When state is nested (objects inside objects, arrays of objects), updating immutably by hand requires lots of ... spread and cloning.
+That gets noisy and error-prone. Immer makes those updates simple and readable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+CNAME
+SPF
+DMARC
+DKIM
+dig command with all flags
++short command , impt -flags
+nslookup command with -flags
