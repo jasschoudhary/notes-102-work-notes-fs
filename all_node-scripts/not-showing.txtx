@@ -1,0 +1,215 @@
+
+
+from here :
+
+DEBUG 2: useEffect running for index 0 
+{variantSku: '', make: '', model: '', year: '', parts: '', …}
+make
+: 
+""
+milesPromised
+: 
+""
+model
+: 
+""
+partPrice
+: 
+""
+parts
+: 
+""
+pictureStatus
+: 
+""
+pictureUrl
+: 
+""
+productVariants
+: 
+Array(0)
+length
+: 
+0
+[[Prototype]]
+: 
+Array(0)
+quantity
+: 
+1
+selectedMileage
+: 
+""
+selectedSubpart
+: 
+null
+specification
+: 
+""
+variantSku
+: 
+""
+year
+: 
+""
+[[Prototype]]
+: 
+Object
+
+
+DEBUG 2: useEffect running for index 0 
+{variantSku: '', make: '', model: '', year: '', parts: '', …}
+make
+: 
+""
+milesPromised
+: 
+""
+model
+: 
+""
+partPrice
+: 
+""
+parts
+: 
+""
+pictureStatus
+: 
+""
+pictureUrl
+: 
+""
+productVariants
+: 
+[]
+quantity
+: 
+1
+selectedMileage
+: 
+""
+selectedSubpart
+: 
+null
+specification
+: 
+""
+variantSku
+: 
+""
+year
+: 
+""
+DEBUG 1: Products from server mapping:
+[
+    {
+        "variantSku": "AUDI-A4-2021-ENGINE-(2.0L),VINA(5THDIGIT)-10K",
+        "make": "Audi",
+        "model": "A4",
+        "year": "2021",
+        "parts": "Engine",
+        "partPrice": "7628",
+        "quantity": 1,
+        "milesPromised": "10",
+        "specification": "(2.0L), VIN A (5th digit)",
+        "pictureUrl": "",
+        "pictureStatus": "PENDING",
+        "productVariants": [],
+        "selectedSubpart": null,
+        "selectedMileage": ""
+    },
+    {
+        "variantSku": "AUDI-A3-2015-ENGINE-1.8L,(ENGINEIDCNSB,GASOLINE),(VINC,5THDIGIT)-50K",
+        "make": "Audi",
+        "model": "A3",
+        "year": "2015",
+        "parts": "Engine",
+        "partPrice": "4215",
+        "quantity": 1,
+        "milesPromised": "50",
+        "specification": "1.8L, (engine ID CNSB, gasoline), (VIN C, 5th digit)",
+        "pictureUrl": "",
+        "pictureStatus": "PENDING",
+        "productVariants": [],
+        "selectedSubpart": null,
+        "selectedMileage": ""
+    }
+]
+
+
+DEBUG 1: Products from server mapping:
+[
+    {
+        "variantSku": "AUDI-A4-2021-ENGINE-(2.0L),VINA(5THDIGIT)-10K",
+        "make": "Audi",
+        "model": "A4",
+        "year": "2021",
+        "parts": "Engine",
+        "partPrice": "7628",
+        "quantity": 1,
+        "milesPromised": "10",
+        "specification": "(2.0L), VIN A (5th digit)",
+        "pictureUrl": "",
+        "pictureStatus": "PENDING",
+        "productVariants": [],
+        "selectedSubpart": null,
+        "selectedMileage": ""
+    },
+    {
+        "variantSku": "AUDI-A3-2015-ENGINE-1.8L,(ENGINEIDCNSB,GASOLINE),(VINC,5THDIGIT)-50K",
+        "make": "Audi",
+        "model": "A3",
+        "year": "2015",
+        "parts": "Engine",
+        "partPrice": "4215",
+        "quantity": 1,
+        "milesPromised": "50",
+        "specification": "1.8L, (engine ID CNSB, gasoline), (VIN C, 5th digit)",
+        "pictureUrl": "",
+        "pictureStatus": "PENDING",
+        "productVariants": [],
+        "selectedSubpart": null,
+        "selectedMileage": ""
+    }
+]
+
+DEBUG 2: useEffect running for index 0 {variantSku: 'AUDI-A4-2021-ENGINE-(2.0L),VINA(5THDIGIT)-10K', make: 'Audi', model: 'A4', year: '2021', parts: 'Engine', …}
+page.tsx:519 DEBUG 3: fetchProductVariants called for index 0
+{
+    "variantSku": "AUDI-A4-2021-ENGINE-(2.0L),VINA(5THDIGIT)-10K",
+    "make": "Audi",
+    "model": "A4",
+    "year": "2021",
+    "parts": "Engine",
+    "partPrice": "7628",
+    "quantity": 1,
+    "milesPromised": "10",
+    "specification": "(2.0L), VIN A (5th digit)",
+    "pictureUrl": "",
+    "pictureStatus": "PENDING",
+    "productVariants": [],
+    "selectedSubpart": null,
+    "selectedMileage": ""
+}
+page.tsx:551
+DEBUG 3: fetchProductVariants called for index 0
+ DEBUG 2: useEffect running for index 1 {variantSku: 'AUDI-A3-2015-ENGINE-1.8L,(ENGINEIDCNSB,GASOLINE),(VINC,5THDIGIT)-50K', make: 'Audi', model: 'A3', year: '2015', parts: 'Engine', …}make: "Audi"milesPromised: "50"model: "A3"partPrice: "4215"parts: "Engine"pictureStatus: "PENDING"pictureUrl: ""productVariants: []quantity: 1selectedMileage: ""selectedSubpart: nullspecification: "1.8L, (engine ID CNSB, gasoline), (VIN C, 5th digit)"variantSku: "AUDI-A3-2015-ENGINE-1.8L,(ENGINEIDCNSB,GASOLINE),(VINC,5THDIGIT)-50K"year: "2015"[[Prototype]]: Object
+{
+    "variantSku": "AUDI-A3-2015-ENGINE-1.8L,(ENGINEIDCNSB,GASOLINE),(VINC,5THDIGIT)-50K",
+    "make": "Audi",
+    "model": "A3",
+    "year": "2015",
+    "parts": "Engine",
+    "partPrice": "4215",
+    "quantity": 1,
+    "milesPromised": "50",
+    "specification": "1.8L, (engine ID CNSB, gasoline), (VIN C, 5th digit)",
+    "pictureUrl": "",
+    "pictureStatus": "PENDING",
+    "productVariants": [],
+    "selectedSubpart": null,
+    "selectedMileage": ""
+}
+
+page.tsx:519 DEBUG 3: fetchProductVariants called for index 1

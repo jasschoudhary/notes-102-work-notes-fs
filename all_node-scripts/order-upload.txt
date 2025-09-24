@@ -1,0 +1,458 @@
+these are column names in .xlsx file of order data : 
+ 
+Column name in .xlsx file == col name in db table (make sure you map/store in exactly that column that in writing here and just once and that only[Sometime for example .xlsx col contains 3 things that needs to be extracted and store seperetly in 3 columns in db table/tables,so keep in mind])
+
+Order No   == orderNumber
+Lead	== source
+CUSTOMER NAME	== customer.fullName
+EMAIL ID	== customer.email
+PHONE NUMBER	== customer.phone
+BILLING ADDRESS	== billingAddress
+SHIPPING ADDRESS == 	shippingAddress
+"Residential / CommercialUnloading Eqp"	== addressType
+PART	== items.year ,items.makeName ,items.modelName ,items.partName ,items.specification
+YARD INFO == yardInfo.yardName ,yardInfo.yardName ,yardInfo.yardAddress ,yard.attnName ,yardInfo.yardMobile ,yardInfo.yardEmail ,yardInfo.yardPrice+ yardInfo.yardShippingCost ,yardInfo.milesPromised ,yardInfo.yardWarranty  
+PO STATUS	== poStatus,poSentAt,poConformAt
+APPROVAL  CODE	== payments.approvalCode
+Charged As On	== payments.chargedAt
+Entity	== payments.Entity
+Charged	== payments.charged
+INVOICE STATUS ==	
+"COST PRICE"	==
+yard shipping	== yardInfo.yardShippingType
+"Shipping Variance" ==	
+Core	 ==
+Tax/Extra Charge ==	
+Yard Refund	==
+Return Shipping Cost/ Customs	
+
+Shipping	==
+Partial refunds	 ==
+Total Buy	==
+"SELLING PRICE"	== 
+Processing Fee	==
+Deposit Fee	==
+
+Sale Made by	== saleMadeBy
+Date of sale	== orderDate
+Warranty	== warranty
+"Miles Promised"	== items.milesPromised
+
+Order Status	== status
+Yard charge Amount	== yardInfo.yardPrice
+Yard charge Date	== 
+
+Terminal Info	==
+Insurance	==
+Dimensions & BOL  == ownShippingInfo.Dimensions , ownShippingInfo.BOL ==	
+Picture Status	==
+tracking  carriername eta	=== trackingNumber,carrierName,
+"Terminal Confirmation //Delayed Pick ups"	
+yard notes	== yardNotes
+ORDER NOTES	== customerNotes
+;;;;;;	
+PROBLAMATIC ORDER NOTES	
+Old yards 1	
+Old yards 2	
+Old yards 3	
+Old yards 4	
+Old BOL
+
+
+also check prisma schema/curl api response so you will have better understanding of these mapping which sheet column to table column.
+
+
+trying to bulk upload order data from xlsx file to mysql db so write script that does this :
+instruction :
+data in .xlsx file is very unstructured so exrtact from there and create a json file from there , write seperate quiery that loads data into db.
+there are one column that has to be extracted and data divided to be in multiple column names.
+
+order number === order number starts with PC# , ex: PC#10086 and are 5 digit.
+source
+customer name
+email id
+phone number
+billing address
+shipping address
+Shipping Address Type
+
+"part" is cart items :
+
+year-make-model
+part
+specification
+miles promised === miles promised
+vinNumber
+
+current yardInfo :
+
+yardName
+yardAddress
+Attn. Name
+Mobile
+Email
+YardPrice
+yardMiles
+yardWarranty
+
+
+PO STATUS =
+
+if "sent" == po sent on
+if "conform" = po conform on
+
+APPROVAL  CODE == if there is 12 digit alpha numeric then that is approval code 
+
+Charged As On ==  
+
+Merchant Method
+Card Charged Date
+
+Entity ===
+charged === 
+
+
+
+INVOICE STATUS =
+
+if "sent" == po sent on
+if "conformed" = po conform on
+
+yard shipping ==== 
+Own Shipping == current yard info.Shipping
+$261.51 	== yard shipping cost or own shipping info.price
+yard charged ammount = Yard Price 
+own shipping info.totalBuy
+
+sale made by  == Sale Made by
+date = date of sale 
+warranty
+status == order status
+
+
+Dimensions & BOL
+
+example : 
+48*40*48
+400lbs
+
+Central Transport
+BOL#239425812
+$181.84
+
+here :
+48*40*48 400lbs is dimention
+BOL#239425812 is bol number , all bol number starts with bol#
+
+Picture Status === if it contains "received" then set it to "yes" else "no"
+
+example : 
+Received Pics 
+on 05/22
+Purchase Email
+
+
+tracking carriername eta 
+
+for example :
+Carrier : CTII ==== carrier name
+PRO#: 233971910 === tracking number
+ETA: 05/30/25 === Estimated Delivery Date
+
+
+yard notes ==== (yard notes in table being saved as json so put them in single json for POSTing)
+ {
+      "id": 1758714477057,
+      "actor": "By Agent",
+      "message": "yn note 2 asdfasdf",
+      "timestamp": "2025-09-24T11:36:35.382Z"
+    },
+
+
+for example :
+
+Spoke to trent he said the part would be delivered by 21st May
+as it is a local deliverey and we will get the 
+pics and W/D by tomorrow.05/19Cat
+
+Mini called back stating she is not able to charge the card informed the concerned person would call her back.05/19Cat
+
+Spoke to Trent informed that we have shared the docs they asked for also asked them to charge the card. 05/21Cat 
+
+Spoke to Mini she said they would ship out the part today & share the pics by EOD. 05/22Cat 
+
+Spoke to mini she sent pics and wanted approval on mail to deliver the order hence given. 05/22Cat
+
+
+
+
+ORDER NOTES ===== order  notes in table being saved as json  so put them in single json for POSTing)
+ {
+      "id": 1758714477057,
+      "actor": "By Agent",
+      "message": "cx note 2 asdfasdf",
+      "timestamp": "2025-09-24T11:36:35.382Z"
+    },
+
+for example :
+
+Called the cx to give an update he said he doesnt know partscentral 
+and hung up hence left a VM. 05/19Cat
+
+called the cx informed that the part will be shipped out by 23rd. 05/21Cat
+
+Called the cx for Review NA . 05/22Cat 
+
+Called the cx for Review he said he will give it.05/28Cat
+
+
+
+here is curl response so you will have better idea how schem and tables are : 
+ curl -X GET "http://localhost:3001/api/orders/cmfxwsry40002vdds51pveip9" -H "Content-Type:application/json" -H "Authorization:
+ Bearer xxxxxxxxx" | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  5258  100  5258    0     0   168k      0 --:--:-- --:--:-- --:--:--  177k
+{
+  "id": "cmfxwsry40002vdds51pveip9",
+  "orderNumber": "00234",
+  "year": null,
+  "saleMadeBy": "Ben Johnson",
+  "currency": "USD",
+  "source": "meta ads",
+  "status": "delivered",
+  "subtotal": "0",
+  "taxesAmount": null,
+  "shippingAmount": "150",
+  "handlingFee": null,
+  "processingFee": null,
+  "corePrice": null,
+  "totalAmount": "3800",
+  "customerId": 5,
+  "billingSnapshot": {
+    "city": "",
+    "email": "sam@gmail.com",
+    "phone": "1231231235",
+    "state": "CA",
+    "address": "this is billing  address , 123 213 23 ., 12321sad",
+    "company": null,
+    "country": "US",
+    "lastName": "joe",
+    "firstName": "bill",
+    "postalCode": "00000",
+    "addressType": "Yet to Update"
+  },
+  "shippingSnapshot": {
+    "city": "",
+    "email": "sam@gmail.com",
+    "phone": "1231231235",
+    "state": "CA",
+    "address": "this is shipping address asd sad12",
+    "company": null,
+    "country": "US",
+    "lastName": "joe",
+    "firstName": "bill",
+    "postalCode": "00000",
+    "addressType": "Yet to Update"
+  },
+  "addressId": "cmfxwsrxi0000vddsa1u5bag5",
+  "addressType": "RESIDENTIAL",
+  "companyName": null,
+  "shippingAddress": "this is shipping address asd sad12",
+  "billingAddress": "this is billing  address , 123 213 23 ., 12321sad",
+  "idempotencyKey": null,
+  "metadata": null,
+  "customerNotes": [
+    {
+      "id": 1758714405852,
+      "actor": "By Agent",
+      "message": "cx note 3 asdfasfd",
+      "timestamp": "2025-09-24T11:36:14.046Z"
+    },
+    {
+      "id": 1758714087307,
+      "actor": "By Agent",
+      "message": "cx note -2 aasdf asdfasdf asdf",
+      "timestamp": "2025-09-24T11:36:03.254Z"
+    },
+    {
+      "id": 1758714327627,
+      "actor": "By Agent",
+      "message": "cx-note-1 asdfasdf",
+      "timestamp": "2025-09-24T11:35:53.295Z"
+    },
+    {
+      "id": 1758714555216,
+      "actor": "Logged By System",
+      "message": "Payment – CLOVER charged for $1400.00. Approval Code: 123456.",
+      "timestamp": "2025-09-24T11:33:25.681Z"
+    },
+    {
+      "id": 1758714396487,
+      "actor": "Added By System",
+      "message": "Order Received – Customer placed the order online.",
+      "timestamp": "2025-09-24T11:30:10.354Z"
+    }
+  ],
+  "yardNotes": [
+    {
+      "id": 1758714477057,
+      "actor": "By Agent",
+      "message": "yn note 2 asdfasdf",
+      "timestamp": "2025-09-24T11:36:35.382Z"
+    },
+    {
+      "id": 1758714400009,
+      "actor": "By Agent",
+      "message": "yn note 1 asdfad",
+      "timestamp": "2025-09-24T11:36:30.406Z"
+    }
+  ],
+  "notes": "THis is note and taki ahsd",
+  "vinNumber": "VIN122wsasds212ds",
+  "orderDate": "2025-09-25T00:00:00.000Z",
+  "carrierName": "carriernameis",
+  "trackingNumber": "trackingno1223",
+  "poStatus": "yes",
+  "poSentAt": "2025-09-25T00:00:00.000Z",
+  "poConfirmAt": "2025-09-25T00:00:00.000Z",
+  "invoiceSentAt": "2025-09-25T00:00:00.000Z",
+  "invoiceConfirmedAt": "2025-09-25T00:00:00.000Z",
+  "invoiceStatus": "yes",
+  "warranty": "WARRANTY_90_DAYS",
+  "createdAt": "2025-09-24T11:36:59.260Z",
+  "updatedAt": "2025-09-24T11:36:59.349Z",
+  "customer": {
+    "id": 5,
+    "email": "sam@gmail.com",
+    "password_hash": null,
+    "full_name": "sam doe",
+    "created_at": "2025-09-24T11:36:59.174Z",
+    "updated_at": "2025-09-24T11:36:59.174Z",
+    "emailVerified": null,
+    "image": null,
+    "otp": null,
+    "otpExpiry": null,
+    "alternativePhone": "1231232134",
+    "phone": null
+  },
+  "items": [
+    {
+      "id": "cmfxwsrzl0004vdds8n8bf3vb",
+      "orderId": "cmfxwsry40002vdds51pveip9",
+      "makeName": "Chrysler",
+      "modelName": "Pacifica",
+      "yearName": "2019",
+      "partName": "Engine",
+      "specification": "(3.6L), VIN 7 (8th digit, hybrid), gasoline",
+      "milesPromised": "40",
+      "pictureStatus": null,
+      "pictureUrl": null,
+      "productVariantId": 10670,
+      "product_id": 42538,
+      "sku": "CHRYSLER-PACIFICA-2019-ENGINE-(3.6L),VIN7(8THDIGIT,HYBRID),GASOLINE-40K",
+      "quantity": 1,
+      "unitPrice": "3800",
+      "lineTotal": "3800",
+      "metadata": null,
+      "createdAt": "2025-09-24T11:36:59.313Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "cmfxwsrzw0006vddsum4qbrcc",
+      "orderId": "cmfxwsry40002vdds51pveip9",
+      "provider": "STRIPE",
+      "providerPaymentId": null,
+      "token": null,
+      "currency": "USD",
+      "amount": "1400",
+      "method": "CLOVER",
+      "status": "SUCCEEDED",
+      "paidAt": "2025-09-24T11:36:59.322Z",
+      "cardHolderName": "bill joe",
+      "cardNumber": "4242 4242 4242 4242",
+      "cardCvv": "123",
+      "cardExpiry": "2034-11-30T18:30:00.000Z",
+      "cardBrand": "Visa",
+      "last4": "4242",
+      "alternateCardHolderName": null,
+      "alternateCardNumber": null,
+      "alternateCardCvv": null,
+      "alternateCardExpiry": null,
+      "alternateCardBrand": null,
+      "alternateLast4": null,
+      "approvelCode": "123456",
+      "charged": "Yes",
+      "chargedDate": "2025-09-18T00:00:00.000Z",
+      "entity": "WY",
+      "metadata": null,
+      "createdAt": "2025-09-24T11:36:59.324Z"
+    }
+  ],
+  "yardInfo": {
+    "id": "cmfxwss0a0008vddsflz4xxfm",
+    "orderId": "cmfxwsry40002vdds51pveip9",
+    "yardName": "joe's yard",
+    "yardAddress": "yard address is 123, mh colony",
+    "yardMobile": "1231231235",
+    "yardEmail": "joedoe@gmail.com",
+    "yardPrice": "122",
+    "yardWarranty": "WARRANTY_90_DAYS",
+    "yardMiles": "120000",
+    "yardOwnShippingInfo": null,
+    "yardShippingType": "Yard Shipping",
+    "yardShippingCost": "150",
+    "attnName": "joe doe",
+    "updatedAt": "2025-09-24T11:36:59.338Z",
+    "createdAt": "2025-09-24T11:36:59.338Z",
+    "reason": "No reason provided",
+    "yardTaxesPrice": "0",
+    "yardHandlingFee": "0",
+    "yardProcessingFee": "0",
+    "yardCorePrice": "0"
+  },
+  "yardHistory": [],
+  "address": {
+    "id": "cmfxwsrxi0000vddsa1u5bag5",
+    "addressType": "RESIDENTIAL",
+    "shippingInfo": {
+      "city": "",
+      "email": "sam@gmail.com",
+      "phone": "1231231235",
+      "state": "CA",
+      "address": "this is shipping address asd sad12",
+      "company": null,
+      "country": "US",
+      "lastName": "joe",
+      "firstName": "bill",
+      "postalCode": "00000",
+      "addressType": "Yet to Update"
+    },
+    "billingInfo": {
+      "city": "",
+      "email": "sam@gmail.com",
+      "phone": "1231231235",
+      "state": "CA",
+      "address": "this is billing  address , 123 213 23 ., 12321sad",
+      "company": null,
+      "country": "US",
+      "lastName": "joe",
+      "firstName": "bill",
+      "postalCode": "00000",
+      "addressType": "Yet to Update"
+    },
+    "companyName": null,
+    "createdAt": "2025-09-24T11:36:59.238Z",
+    "updatedAt": "2025-09-24T11:36:59.238Z"
+  }
+}
+
+find schema at autosq-3/backend/partscentral-db/prisma/schema.prisma there.
+
+What else do you need about order sheet so you can perfect script that handles ,stores only clean fields.??
+
+im giving you order data in .txt fromat (is is copied from .xlsx file so not structerd/indented properly but you can read it here file location is : autosq-3/backend/partscentral-db/order-data-in-txt-format.txt)
+
+also the location for file.json (see what mistekes the data has ) is autosq-3/backend/partscentral-db/file1.json .
+so update node script .
